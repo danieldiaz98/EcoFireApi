@@ -1,4 +1,4 @@
-from pydantic import BaseModer, Field
+from pydantic import BaseModel, Field
 
 class CoordinateRequest (BaseModel):
     latitude: float = Field(ge= 27.5, le= 29.5, description="Latitude must be between 27.5 and 29.5")
