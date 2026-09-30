@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
-from app.schemas.risk import Risklevel
+from app.schemas.risk import RiskLevel
 from app.schemas.weather import WeatherData
+from app.schemas.location import CoordinateRequest
 
 class FireRiskResponse(BaseModel):
     location: CoordinateRequest = Field(
