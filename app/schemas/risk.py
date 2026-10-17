@@ -4,5 +4,5 @@ class RiskLevel(str, Enum):
     LOW = "Low"
     MODERATE = "Moderate"
     HIGH = "High"
-    VERY_HIGH = "Very High"
+    VERY_HIGH = "Very_High"
     EXTREME = "Extreme"
