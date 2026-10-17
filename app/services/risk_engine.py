@@ -1,5 +1,6 @@
 from app.schemas.location import CoordinateRequest
-from app.schemas.risk import FireRiskResponse, RiskLevel
+from app.schemas.risk import RiskLevel
+from app.schemas.fire_risk_response import FireRiskResponse
 from app.schemas.weather import WeatherData
 
 
@@ -39,15 +40,15 @@ def calculate_score(weather: WeatherData, rule_30_active: bool) -> float:
 
 def get_risk_level(score: float) -> RiskLevel:
     if score < 25.0:
-        return RiskLevel.BAJO
+        return RiskLevel.LOW
     elif score < 50.0:
-        return RiskLevel.MODERADO
+        return RiskLevel.MODERATE
     elif score < 70.0:
-        return RiskLevel.ALTO
+        return RiskLevel.HIGH
     elif score < 85.0:
-        return RiskLevel.MUY_ALTO
+        return RiskLevel.VERY_HIGH
     else:
-        return RiskLevel.EXTREMO
+        return RiskLevel.EXTREME
 
 
 def get_recommendation(level: RiskLevel, rule_30_active: bool) -> str:
@@ -55,16 +56,16 @@ def get_recommendation(level: RiskLevel, rule_30_active: bool) -> str:
         return "ALERTA MÁXIMA: Se cumple la regla del 30-30-30. Prohibición absoluta de fuegos, maquinaria y actividades de riesgo en monte."
     
     recommendations = {
-        RiskLevel.BAJO: "Riesgo bajo. Condiciones normales de prevención.",
-        RiskLevel.MODERADO: "Riesgo moderado. Mantener precaución en zonas forestales y evitar arrojar colillas o basura.",
-        RiskLevel.ALTO: "Riesgo alto. Restricción de quemas agrícolas y extremar precauciones en uso de barbacoas.",
-        RiskLevel.MUY_ALTO: "Riesgo muy alto. Prohibición de quemas agrícolas y uso de maquinaria pirotécnica o cortacéspedes en zonas de monte.",
-        RiskLevel.EXTREMO: "Riesgo extremo. Prohibición total de acceso a zonas forestales y uso de fogones."
+        RiskLevel.LOW: "Riesgo bajo. Condiciones normales de prevención.",
+        RiskLevel.MODERATE: "Riesgo moderado. Mantener precaución en zonas forestales y evitar arrojar colillas o basura.",
+        RiskLevel.HIGH: "Riesgo alto. Restricción de quemas agrícolas y extremar precauciones en uso de barbacoas.",
+        RiskLevel.VERY_HIGH: "Riesgo muy alto. Prohibición de quemas agrícolas y uso de maquinaria pirotécnica o cortacéspedes en zonas de monte.",
+        RiskLevel.EXTREME: "Riesgo extremo. Prohibición total de acceso a zonas forestales y uso de fogones."
     }
     return recommendations.get(level, "Precaución general.")
 
 
-def calculate_fire_risk(location: CoordinateRequest, weather: WeatherData) -> FireRiskResponse:
+async def calculate_fire_risk(location: CoordinateRequest, weather: WeatherData) -> FireRiskResponse:
     rule_30 = check_30_30_30_rule(weather)
     score = calculate_score(weather, rule_30)
     level = get_risk_level(score)
