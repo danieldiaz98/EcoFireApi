@@ -12,10 +12,11 @@ def test_check_30_30_30_rule_active():
 
 def test_temperature_score():
     temperature = 30.0
+    temperature_score = _get_temperature_score(temperature)
 
-    score = calculate_score(WeatherData(temperature=temperature, humidity_percent=50.0, wind_speed=10.0), rule_30_active=False)
+    expected_temperature_score = 39.33
     
-    assert score == 39.33
+    assert temperature_score == expected_temperature_score
 
 def test_humidity_score():
     humidity = 20.0
