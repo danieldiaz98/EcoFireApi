@@ -25,3 +25,11 @@ def test_humidity_score():
     expected_humidity_score = 30.0
 
     assert humidity_score == expected_humidity_score
+
+def test_wind_score():
+    wind = 40.0
+    wind_score = _get_wind_score(wind)
+
+    expected_wind_score = 25.0
+
+    assert wind_score == expected_wind_score
