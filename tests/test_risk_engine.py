@@ -33,3 +33,16 @@ def test_wind_score():
     expected_wind_score = 25.0
 
     assert wind_score == expected_wind_score
+
+def test_calculate_score_with_rule_30_active():
+    weather = WeatherData(
+        temperature=35.0,
+        humidity_percent=20.0,
+        wind_speed=40.0
+    )
+    rule_30_active = True
+    score = calculate_score(weather, rule_30_active)
+
+    expected_score = 85.0
+
+    assert score == expected_score
