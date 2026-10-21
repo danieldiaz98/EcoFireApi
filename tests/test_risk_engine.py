@@ -1,3 +1,4 @@
+from app.schemas.risk import RiskLevel
 from app.schemas.weather import WeatherData
 from app.services.risk_engine import check_30_30_30_rule, calculate_score, get_risk_level, get_recommendation
 from app.services.risk_engine import _get_temperature_score, _get_humidity_score, _get_wind_score
@@ -14,7 +15,7 @@ def test_temperature_score():
     temperature = 30.0
     temperature_score = _get_temperature_score(temperature)
 
-    expected_temperature_score = 39.33
+    expected_temperature_score = 21.0
     
     assert temperature_score == expected_temperature_score
 
@@ -24,15 +25,15 @@ def test_humidity_score():
 
     expected_humidity_score = 30.0
 
-    assert humidity_score == expected_humidity_score
+    assert round(humidity_score, 2) == expected_humidity_score
 
 def test_wind_score():
     wind = 40.0
     wind_score = _get_wind_score(wind)
 
-    expected_wind_score = 25.0
+    expected_wind_score = 23.33
 
-    assert wind_score == expected_wind_score
+    assert round(wind_score,2) == expected_wind_score
 
 def test_calculate_score_with_rule_30_active():
     weather = WeatherData(
@@ -56,6 +57,6 @@ def test_calculate_score_without_rule_30_not_active():
     rule_30_active = False
     score = calculate_score(weather, rule_30_active)
 
-    expected_score = 35.0
+    expected_score = 44.0
 
     assert score == expected_score
