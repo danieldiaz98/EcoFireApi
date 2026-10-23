@@ -51,10 +51,7 @@ def get_risk_level(score: float) -> RiskLevel:
         return RiskLevel.EXTREME
 
 
-def get_recommendation(level: RiskLevel, rule_30_active: bool) -> str:
-    if rule_30_active:
-        return "ALERTA MÁXIMA: Se cumple la regla del 30-30-30. Prohibición absoluta de fuegos, maquinaria y actividades de riesgo en monte."
-    
+def get_recommendation(level: RiskLevel) -> str:
     recommendations = {
         RiskLevel.LOW: "Riesgo bajo. Condiciones normales de prevención.",
         RiskLevel.MODERATE: "Riesgo moderado. Mantener precaución en zonas forestales y evitar arrojar colillas o basura.",
