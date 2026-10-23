@@ -69,3 +69,24 @@ def test_get_recommendation_without_rule_30_not_active():
     expected_recommendation = "Riesgo moderado. Mantener precaución en zonas forestales y evitar arrojar colillas o basura."
 
     assert recommendation == expected_recommendation
+
+def test_get_risk_level():
+    score = 60.0
+    risk_level = get_risk_level(score)
+
+    expected_risk_level = RiskLevel.HIGH
+
+    assert risk_level == expected_risk_level
+
+def test_calculate_fire_risk_score():
+    weather = WeatherData(
+        temperature=32.0,
+        humidity_percent=25.0,
+        wind_speed=35.0
+    )
+    rule_30_active = True
+    score = calculate_score(weather, rule_30_active)
+
+    expected_score = 85.0
+
+    assert score == expected_score
