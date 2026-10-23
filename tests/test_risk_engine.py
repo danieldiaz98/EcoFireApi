@@ -78,7 +78,7 @@ def test_get_risk_level():
 
     assert risk_level == expected_risk_level
 
-def test_calculate_fire_risk_score():
+def test_calculate_fire_risk_score_with_rule_30_active():
     weather = WeatherData(
         temperature=32.0,
         humidity_percent=25.0,
@@ -88,5 +88,18 @@ def test_calculate_fire_risk_score():
     score = calculate_score(weather, rule_30_active)
 
     expected_score = 85.0
+
+    assert score == expected_score
+
+def test_calculate_fire_risk_score_without_rule_30_not_active():
+    weather = WeatherData(
+        temperature=28.0,
+        humidity_percent=30.0,
+        wind_speed=25.0
+    )
+    rule_30_active = False
+    score = calculate_score(weather, rule_30_active)
+
+    expected_score = 56.53
 
     assert score == expected_score
