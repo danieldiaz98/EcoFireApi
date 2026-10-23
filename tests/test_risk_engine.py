@@ -61,19 +61,10 @@ def test_calculate_score_without_rule_30_not_active():
 
     assert score == expected_score
 
-def test_get_recommendation_with_rule_30_active():
-    level = RiskLevel.LOW
-    rule_30_active = True
-    recommendation = get_recommendation(level, rule_30_active)
-
-    expected_recommendation = "ALERTA MÁXIMA: Se cumple la regla del 30-30-30. Prohibición absoluta de fuegos, maquinaria y actividades de riesgo en monte."
-
-    assert recommendation == expected_recommendation
-
 def test_get_recommendation_without_rule_30_not_active():
     level = RiskLevel.MODERATE
     rule_30_active = False
-    recommendation = get_recommendation(level, rule_30_active)
+    recommendation = get_recommendation(level)
 
     expected_recommendation = "Riesgo moderado. Mantener precaución en zonas forestales y evitar arrojar colillas o basura."
 
