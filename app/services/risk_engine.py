@@ -66,7 +66,7 @@ async def calculate_fire_risk(location: CoordinateRequest, weather: WeatherData)
     rule_30 = check_30_30_30_rule(weather)
     score = calculate_score(weather, rule_30)
     level = get_risk_level(score)
-    recommendation = get_recommendation(level, rule_30)
+    recommendation = get_recommendation(level)
     
     return FireRiskResponse(
         location=location,
